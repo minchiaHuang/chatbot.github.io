@@ -53,7 +53,7 @@ header h1 {
   margin: 0;
 }
 
-#closeBtn {
+#close-btn {
   display: flex;
   background: none;
   border: none;
@@ -76,6 +76,17 @@ header h1 {
   justify-content: space-between;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
 #user-input {
   flex-grow: 1;
   height: 36px;
@@ -86,12 +97,12 @@ header h1 {
   border-radius: 18px;
 }
 
-#use-input:focus {
+#user-input:focus {
   outline: none;
   border-color: #4caf50;
 }
 
-#sendBtn {
+#send-btn {
   background-color: #4caf50;
   color: white;
   border: none;

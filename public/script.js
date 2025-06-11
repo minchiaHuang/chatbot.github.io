@@ -1,6 +1,6 @@
 const chatArea = document.getElementById('chat-area');
 const input = document.getElementById('user-input');
-const sendBtn = document.getElementById('sendBtn');
+const sendBtn = document.getElementById('send-btn');
 
 //Sending message
 async function sendMessageToServer(message) {
