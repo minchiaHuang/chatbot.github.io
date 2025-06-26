@@ -1,0 +1,41 @@
+{
+  "name": "movie-rag-chatbot",
+  "version": "1.0.0",
+  "description": "A movie recommendation chatbot using RAG (Retrieval-Augmented Generation) with DataStax Astra DB and OpenAI",
+  "main": "src/server/app.js",
+  "scripts": {
+    "start": "node src/server/app.js",
+    "dev": "nodemon src/server/app.js",
+    "convert-movies": "node src/lib/utils/convert-movies.js",
+    "generate-embeddings": "node src/lib/embeddings/embedding-generator.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minchiaHuang/chatbot.github.io.git"
+  },
+  "keywords": [
+    "chatbot",
+    "movie",
+    "recommendations",
+    "rag",
+    "ai",
+    "openai",
+    "datastax",
+    "vector-search",
+    "embeddings"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/minchiaHuang/chatbot.github.io/issues"
+  },
+  "homepage": "https://github.com/minchiaHuang/chatbot.github.io#readme",
+  "dependencies": {
+    "@datastax/astra-db-ts": "^2.0.1",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "node-fetch": "^3.3.2",
+    "openai": "^5.5.1"
+  }
+}

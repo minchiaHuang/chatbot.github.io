@@ -1,0 +1,14 @@
+node_modules/
+.env
+.DS_Store
+
+# Large data files
+data/title.basics.tsv
+data/title.ratings.tsv
+
+# Learning materials (don't commit to GitHub)
+*-lesson-*.md
+*-exercise-*.js
+*-plan-*.md
+docs/lessons/
+docs/exercises/
