@@ -70,21 +70,30 @@ class TMDBRag {
       return { type: 'upcoming', reason: 'User asking for future/upcoming movies' };
     }
 
-    // Check for genre-specific queries
+    // Check for genre-specific queries (using Chinese names for TMDB API)
     const genreKeywords = {
-      '科幻': 'Science Fiction',
-      '動作': 'Action',
-      '愛情': 'Romance',
-      '喜劇': 'Comedy',
-      '恐怖': 'Horror',
-      '驚悚': 'Thriller',
-      '劇情': 'Drama',
-      '冒險': 'Adventure'
+      '科幻': '科幻',
+      '動作': '動作',
+      '愛情': '愛情',
+      '喜劇': '喜劇',
+      '恐怖': '恐怖',
+      '驚悚': '驚悚',
+      '劇情': '劇情',
+      '冒險': '冒險',
+      // English aliases for Chinese genres
+      'science fiction': '科幻',
+      'action': '動作',
+      'romance': '愛情',
+      'comedy': '喜劇',
+      'horror': '恐怖',
+      'thriller': '驚悚',
+      'drama': '劇情',
+      'adventure': '冒險'
     };
 
-    for (const [chinese, english] of Object.entries(genreKeywords)) {
-      if (message.includes(chinese) || message.includes(english.toLowerCase())) {
-        return { type: 'genre', genre: english, reason: `User asking for ${english} movies` };
+    for (const [keyword, genreName] of Object.entries(genreKeywords)) {
+      if (message.includes(keyword) || message.includes(keyword.toLowerCase())) {
+        return { type: 'genre', genre: genreName, reason: `User asking for ${genreName} movies` };
       }
     }
 
