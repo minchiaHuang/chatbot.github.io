@@ -12,9 +12,10 @@ data/title.ratings.tsv
 docs/exercises/
 exercises/
 
-# Learning examples (local practice only)
+# Learning examples and temporary files (local practice only)
 learning-examples/
+archive/
 
 # Temporary notes and plans
 *-plan-*.md
-today-learning-notes.md
+*-notes-*.md
