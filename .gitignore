@@ -6,9 +6,15 @@ node_modules/
 data/title.basics.tsv
 data/title.ratings.tsv
 
-# Learning materials (don't commit to GitHub)
-*-lesson-*.md
+# Practice files (don't commit to GitHub)
 *-exercise-*.js
-*-plan-*.md
-docs/lessons/
+*-exercise-*.py
 docs/exercises/
+exercises/
+
+# Learning examples (local practice only)
+learning-examples/
+
+# Temporary notes and plans
+*-plan-*.md
+today-learning-notes.md

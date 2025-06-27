@@ -14,8 +14,8 @@ app.use(express.static(path.join(__dirname, '../../public')));
 // Debug: Static file path
 console.log('Static file path:', path.join(__dirname, '../../public'));
 
-// TODO: Import RAG system when ready
-// const { ragChatbot } = require('../lib/rag/complete-rag');
+// Import TMDB-RAG system (replaces old vector search)
+const { tmdbRagChatbot } = require('../lib/rag/tmdb-rag');
 
 // 測試根路由
 app.get('/', (req, res) => {
@@ -26,13 +26,16 @@ app.post('/api/message', async (req, res) => {
   const userMessage = req.body.message;
 
   try {
-    // TODO: Replace with RAG system
-    // const reply = await ragChatbot(userMessage);
-    const reply = `Echo: ${userMessage}`;
+    console.log(`📨 Received message: "${userMessage}"`);
+
+    // Use TMDB-RAG system to generate response
+    const reply = await tmdbRagChatbot(userMessage);
+
+    console.log(`🤖 Sending reply: "${reply.substring(0, 100)}..."`);
     res.json({ reply });
   } catch (error) {
-    console.error('Error processing message:', error);
-    res.json({ reply: "Sorry, I couldn't process your request." });
+    console.error('❌ Error processing message:', error);
+    res.json({ reply: "抱歉，我現在無法處理您的請求。請稍後再試。" });
   }
 });
 
