@@ -35,12 +35,12 @@ async function testRAGComponents() {
     const db = client.db(process.env.ASTRA_DB_API_ENDPOINT);
     const collection = db.collection('movie_embeddings');
 
-    const count = await collection.countDocuments({}, {upperBound: 1000});
+    const count = await collection.countDocuments({}, { upperBound: 1000 });
     console.log(`✅ Astra DB OK - ${count} movies found\n`);
 
     // Test 4: Complete RAG test
     console.log('4️⃣ Testing complete RAG system...');
-    const { ragChatbot } = require('./src/lib/rag/complete-rag');
+    const { ragChatbot } = require('../src/lib/rag/complete-rag');
     const response = await ragChatbot('推薦科幻電影');
     console.log('✅ RAG system OK');
     console.log('🎬 Response:', response.substring(0, 200) + '...\n');

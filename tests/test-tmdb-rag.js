@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { TMDBRag } = require('./src/lib/rag/tmdb-rag');
+const { TMDBRag } = require('../src/lib/rag/tmdb-rag');
 
 async function testTMDBRagIntegration() {
   console.log('🧪 Testing TMDB-RAG Integration...\n');

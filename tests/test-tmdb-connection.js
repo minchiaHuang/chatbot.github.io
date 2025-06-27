@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { TMDBService } = require('./src/lib/tmdb/tmdb-service');
+const { TMDBService } = require('../src/lib/tmdb/tmdb-service');
 
 async function testTMDBConnection() {
   console.log('🧪 Testing TMDB API connection...\n');
