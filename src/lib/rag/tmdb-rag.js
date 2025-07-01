@@ -51,7 +51,7 @@ class TMDBRag {
         return await this.chatService.generateResponse(userMessage, []);
       } catch (fallbackError) {
         console.error('❌ Fallback failed:', fallbackError.message);
-        return '抱歉，我現在無法處理您的請求。請稍後再試。';
+        return 'Sorry, I am unable to process your request at the moment. Please try again later.';
       }
     }
   }
@@ -70,25 +70,119 @@ class TMDBRag {
       return { type: 'upcoming', reason: 'User asking for future/upcoming movies' };
     }
 
-    // Check for genre-specific queries (using Chinese names for TMDB API)
+    // Check for genre-specific queries (using English names for TMDB API)
     const genreKeywords = {
-      '科幻': '科幻',
-      '動作': '動作',
-      '愛情': '愛情',
-      '喜劇': '喜劇',
-      '恐怖': '恐怖',
-      '驚悚': '驚悚',
-      '劇情': '劇情',
-      '冒險': '冒險',
-      // English aliases for Chinese genres
-      'science fiction': '科幻',
-      'action': '動作',
-      'romance': '愛情',
-      'comedy': '喜劇',
-      'horror': '恐怖',
-      'thriller': '驚悚',
-      'drama': '劇情',
-      'adventure': '冒險'
+      // Science Fiction variations
+      'sci-fi': 'Science Fiction',
+      'sci fi': 'Science Fiction',
+      'scifi': 'Science Fiction',
+      'si-fi': 'Science Fiction',
+      'si fi': 'Science Fiction',
+      'science fiction': 'Science Fiction',
+      'science-fiction': 'Science Fiction',
+
+      // Action variations
+      'action': 'Action',
+      'action movies': 'Action',
+      'action films': 'Action',
+
+      // Adventure variations
+      'adventure': 'Adventure',
+      'adventures': 'Adventure',
+      'adventure movies': 'Adventure',
+
+      // Animation variations  
+      'animation': 'Animation',
+      'animated': 'Animation',
+      'cartoon': 'Animation',
+      'cartoons': 'Animation',
+
+      // Comedy variations
+      'comedy': 'Comedy',
+      'comedies': 'Comedy',
+      'funny': 'Comedy',
+      'humor': 'Comedy',
+      'humorous': 'Comedy',
+
+      // Crime variations
+      'crime': 'Crime',
+      'criminal': 'Crime',
+      'heist': 'Crime',
+      'gangster': 'Crime',
+
+      // Documentary variations
+      'documentary': 'Documentary',
+      'documentaries': 'Documentary',
+      'doc': 'Documentary',
+      'docs': 'Documentary',
+
+      // Drama variations
+      'drama': 'Drama',
+      'dramas': 'Drama',
+      'dramatic': 'Drama',
+
+      // Family variations
+      'family': 'Family',
+      'kids': 'Family',
+      'children': 'Family',
+      'kid-friendly': 'Family',
+
+      // Fantasy variations
+      'fantasy': 'Fantasy',
+      'magical': 'Fantasy',
+      'magic': 'Fantasy',
+      'fairy tale': 'Fantasy',
+      'fairytale': 'Fantasy',
+
+      // History variations
+      'history': 'History',
+      'historical': 'History',
+      'period': 'History',
+      'historical drama': 'History',
+
+      // Horror variations
+      'horror': 'Horror',
+      'scary': 'Horror',
+      'frightening': 'Horror',
+      'spooky': 'Horror',
+      'suspense': 'Horror',
+
+      // Music variations
+      'music': 'Music',
+      'musical': 'Music',
+      'musicals': 'Music',
+      'singing': 'Music',
+
+      // Mystery variations
+      'mystery': 'Mystery',
+      'mysteries': 'Mystery',
+      'detective': 'Mystery',
+      'whodunit': 'Mystery',
+
+      // Romance variations
+      'romance': 'Romance',
+      'romantic': 'Romance',
+      'love': 'Romance',
+      'love story': 'Romance',
+      'romantic comedy': 'Romance',
+
+      // Thriller variations
+      'thriller': 'Thriller',
+      'thrillers': 'Thriller',
+      'suspense': 'Thriller',
+      'psychological': 'Thriller',
+
+      // War variations
+      'war': 'War',
+      'military': 'War',
+      'battle': 'War',
+      'combat': 'War',
+
+      // Western variations
+      'western': 'Western',
+      'westerns': 'Western',
+      'cowboy': 'Western',
+      'cowboys': 'Western'
     };
 
     for (const [keyword, genreName] of Object.entries(genreKeywords)) {
@@ -161,11 +255,11 @@ class TMDBRag {
    */
   extractKeywords(userMessage) {
     // Remove common question words and extract meaningful terms
-    const stopWords = ['推薦', '什麼', '哪些', '有', '嗎', '呢', '電影', '影片', '片子'];
+    const stopWords = ['recommend', 'what', 'which', 'some', 'any', 'movie', 'movies', 'film', 'films', 'show', 'shows'];
     let keywords = userMessage;
 
     stopWords.forEach(word => {
-      keywords = keywords.replace(new RegExp(word, 'g'), '');
+      keywords = keywords.replace(new RegExp(word, 'gi'), '');
     });
 
     return keywords.trim() || userMessage;

@@ -52,7 +52,7 @@ class CompleteRAG {
         return await this.chatService.generateResponse(userMessage, []);
       } catch (fallbackError) {
         console.error('❌ Fallback failed:', fallbackError.message);
-        return '抱歉，我現在無法處理您的請求。請稍後再試。';
+        return 'Sorry, I am unable to process your request at the moment. Please try again later.';
       }
     }
   }
