@@ -19,3 +19,9 @@ archive/
 # Temporary notes and plans
 *-plan-*.md
 *-notes-*.md
+
+# VS Code workspace files
+*.code-workspace
+
+# Lesson documentation files (local teaching only)
+docs/lessons/0*-lesson-*.md
