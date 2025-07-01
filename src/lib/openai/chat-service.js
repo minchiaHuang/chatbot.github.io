@@ -49,7 +49,7 @@ class ChatService {
   createSystemPrompt(movies) {
     let systemPrompt = `You are a helpful movie recommendation assistant. You have access to a database of movies and can provide personalized recommendations.
 
-Always respond in Traditional Chinese (繁體中文). Be friendly, enthusiastic, and knowledgeable about movies.
+Always respond in English. Be friendly, enthusiastic, and knowledgeable about movies.
 
 When recommending movies, include:
 - Movie title and year

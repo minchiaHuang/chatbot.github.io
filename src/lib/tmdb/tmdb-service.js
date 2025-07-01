@@ -23,7 +23,7 @@ class TMDBService {
    */
   async searchMovies(query, page = 1) {
     try {
-      const url = `${this.baseURL}/search/movie?api_key=${this.apiKey}&query=${encodeURIComponent(query)}&page=${page}&language=zh-TW`;
+      const url = `${this.baseURL}/search/movie?api_key=${this.apiKey}&query=${encodeURIComponent(query)}&page=${page}&language=en-US`;
 
       const response = await fetch(url);
       if (!response.ok) {
@@ -44,7 +44,7 @@ class TMDBService {
    */
   async getPopularMovies(page = 1) {
     try {
-      const url = `${this.baseURL}/movie/popular?api_key=${this.apiKey}&page=${page}&language=zh-TW`;
+      const url = `${this.baseURL}/movie/popular?api_key=${this.apiKey}&page=${page}&language=en-US`;
 
       const response = await fetch(url);
       if (!response.ok) {
@@ -65,7 +65,7 @@ class TMDBService {
    */
   async getUpcomingMovies(page = 1) {
     try {
-      const url = `${this.baseURL}/movie/upcoming?api_key=${this.apiKey}&page=${page}&language=zh-TW`;
+      const url = `${this.baseURL}/movie/upcoming?api_key=${this.apiKey}&page=${page}&language=en-US`;
 
       const response = await fetch(url);
       if (!response.ok) {
@@ -88,7 +88,7 @@ class TMDBService {
   async getMoviesByGenre(genre, page = 1) {
     try {
       // First get genre list to find genre ID
-      const genresUrl = `${this.baseURL}/genre/movie/list?api_key=${this.apiKey}&language=zh-TW`;
+      const genresUrl = `${this.baseURL}/genre/movie/list?api_key=${this.apiKey}&language=en-US`;
       const genresResponse = await fetch(genresUrl);
       const genresData = await genresResponse.json();
 
@@ -103,7 +103,7 @@ class TMDBService {
       }
 
       // Search movies by genre ID
-      const url = `${this.baseURL}/discover/movie?api_key=${this.apiKey}&with_genres=${genreObj.id}&page=${page}&language=zh-TW&sort_by=popularity.desc`;
+      const url = `${this.baseURL}/discover/movie?api_key=${this.apiKey}&with_genres=${genreObj.id}&page=${page}&language=en-US&sort_by=popularity.desc`;
 
       const response = await fetch(url);
       if (!response.ok) {

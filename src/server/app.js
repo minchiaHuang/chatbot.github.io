@@ -35,7 +35,7 @@ app.post('/api/message', async (req, res) => {
     res.json({ reply });
   } catch (error) {
     console.error('❌ Error processing message:', error);
-    res.json({ reply: "抱歉，我現在無法處理您的請求。請稍後再試。" });
+    res.json({ reply: "Sorry, I am unable to process your request at the moment. Please try again later." });
   }
 });
 
