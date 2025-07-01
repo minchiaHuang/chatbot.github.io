@@ -6,9 +6,16 @@
 class ChatInterface {
   constructor() {
     this.chatArea = document.getElementById('chat-area');
+    this.chatBox = document.getElementById('chat-box');
     this.input = document.getElementById('user-input');
     this.sendBtn = document.getElementById('send-btn');
+
+    this.chatWindow = document.getElementById('chat-window');
+    this.chatToggle = document.getElementById('chat-toggle');
+    this.closeBtn = document.getElementById('close-btn');
+
     this.initializeEventListeners();
+    this.restoreChatState();
   }
 
   /**
@@ -21,6 +28,19 @@ class ChatInterface {
         this.handleSend();
       }
     });
+
+    this.chatToggle.addEventListener('click', () => this.openChat());
+    this.closeBtn.addEventListener('click', () => this.closeChat());
+  }
+
+  openChat() {
+    this.chatWindow.style.display = 'flex';
+    localStorage.setItem('chatWindowOpen', 'true');
+  }
+
+  closeChat() {
+    this.chatWindow.style.display = 'none';
+    localStorage.setItem('chatWindowOpen', 'false');
   }
 
   /**
@@ -63,6 +83,7 @@ class ChatInterface {
 
     // Add user message to chat
     this.addMessageToChat(userMessage, 'user-message');
+    this.scrollToBottom();
 
     // Show loading indicator
     const loadingElement = this.addMessageToChat('Thinking...', 'bot-message', 'loading');
@@ -75,13 +96,15 @@ class ChatInterface {
       this.chatArea.removeChild(loadingElement);
 
       // Add bot response
-      this.addMessageToChat(reply, 'bot-message');
+      const botMessageElement = this.addMessageToChat('', 'bot-message')
+      await this.typeWriterEffect(botMessageElement, reply);
     } catch (error) {
       // Remove loading indicator
       this.chatArea.removeChild(loadingElement);
 
       // Show error message
-      this.addMessageToChat('Sorry, there was an error processing your request.', 'bot-message');
+      const errorMessageElement = this.addMessageToChat('', 'bot-message')
+      this.typeWriterEffect('Sorry, there was an error processing your request.', 'bot-message');
     }
 
     // Scroll to bottom
@@ -93,12 +116,19 @@ class ChatInterface {
    * @param {string} message - Message text
    * @param {string} className - CSS class name
    * @param {string} id - Optional element ID
+   * @param {boolean} useTypewriter - Whether to use typewriter effect
    * @returns {HTMLElement} - Created message element
    */
-  addMessageToChat(message, className, id = null) {
+
+  addMessageToChat(message, className, id = null, useTypewriter = false) {
     const messageElement = document.createElement('div');
     messageElement.classList.add(className);
-    messageElement.textContent = message;
+
+    if (useTypewriter) {
+      messageElement.textContent = '';
+    } else {
+      messageElement.textContent = message;
+    }
 
     if (id) {
       messageElement.id = id;
@@ -108,11 +138,40 @@ class ChatInterface {
     return messageElement;
   }
 
+  async typeWriterEffect(element, text, speed = 25) {
+    return new Promise((resolve) => {
+      let i = 0;
+
+      const typeInterval = setInterval(() => {
+        if (i < text.length) {
+          element.textContent += text.charAt(i);
+          i++;
+
+          this.scrollToBottom();
+        } else {
+          clearInterval(typeInterval);
+          resolve();
+        }
+      }, speed);
+    });
+  }
+
+
+
   /**
    * Scroll chat area to bottom
    */
   scrollToBottom() {
-    this.chatArea.scrollTop = this.chatArea.scrollHeight;
+    this.chatBox.scrollTop = this.chatBox.scrollHeight;
+  }
+
+  restoreChatState() {
+    const isOpen = localStorage.getItem('chatWindowOpen');
+    if (isOpen === 'true') {
+      this.chatWindow.style.display = 'flex';
+    } else {
+      this.chatWindow.style.display = 'none';
+    }
   }
 }
 
